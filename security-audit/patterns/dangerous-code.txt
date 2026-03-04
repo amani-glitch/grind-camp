@@ -1,0 +1,87 @@
+# Dangerous Code Patterns
+# Each line contains: SEVERITY|CATEGORY|PATTERN|DESCRIPTION
+
+# XSS Vulnerabilities
+HIGH|XSS|innerHTML\s*=|Direct innerHTML assignment can lead to XSS
+HIGH|XSS|outerHTML\s*=|Direct outerHTML assignment can lead to XSS
+HIGH|XSS|document\.write\s*\(|document.write can lead to XSS
+HIGH|XSS|dangerouslySetInnerHTML|React dangerous HTML rendering
+HIGH|XSS|v-html\s*=|Vue v-html directive can lead to XSS
+MEDIUM|XSS|insertAdjacentHTML|insertAdjacentHTML can lead to XSS if not sanitized
+
+# Code Injection
+CRITICAL|CODE_INJECTION|eval\s*\(|eval() can execute arbitrary code
+HIGH|CODE_INJECTION|new\s+Function\s*\(|Function constructor can execute arbitrary code
+MEDIUM|CODE_INJECTION|setTimeout\s*\(\s*['"]|setTimeout with string can execute code
+MEDIUM|CODE_INJECTION|setInterval\s*\(\s*['"]|setInterval with string can execute code
+
+# SQL Injection
+CRITICAL|SQL_INJECTION|\+\s*['"].*SELECT|String concatenation in SQL query
+CRITICAL|SQL_INJECTION|\+\s*['"].*INSERT|String concatenation in SQL INSERT
+CRITICAL|SQL_INJECTION|\+\s*['"].*UPDATE|String concatenation in SQL UPDATE
+CRITICAL|SQL_INJECTION|\+\s*['"].*DELETE|String concatenation in SQL DELETE
+HIGH|SQL_INJECTION|\$\{.*\}.*SELECT|Template literal in SQL query
+HIGH|SQL_INJECTION|query\s*\(\s*['"].*\+|Concatenated query string
+
+# Command Injection
+CRITICAL|COMMAND_INJECTION|exec\s*\([^)]*\+|exec with concatenation
+CRITICAL|COMMAND_INJECTION|execSync\s*\([^)]*\+|execSync with concatenation
+HIGH|COMMAND_INJECTION|spawn\s*\([^)]*\+|spawn with concatenation
+HIGH|COMMAND_INJECTION|child_process|child_process usage needs review
+
+# Path Traversal
+HIGH|PATH_TRAVERSAL|\.\.\/|Potential path traversal
+HIGH|PATH_TRAVERSAL|\.\.\\|Potential path traversal (Windows)
+MEDIUM|PATH_TRAVERSAL|path\.join.*\.\.|Path join with relative paths
+
+# Prototype Pollution
+HIGH|PROTOTYPE_POLLUTION|__proto__|Prototype manipulation
+HIGH|PROTOTYPE_POLLUTION|constructor\[|Constructor property access
+MEDIUM|PROTOTYPE_POLLUTION|Object\.assign\s*\(\s*\{\}|Object.assign may be vulnerable
+
+# Unsafe Redirects
+MEDIUM|OPEN_REDIRECT|location\s*=\s*[^'"]*\+|Dynamic redirect URL
+MEDIUM|OPEN_REDIRECT|location\.href\s*=\s*[^'"]*\+|Dynamic redirect URL
+MEDIUM|OPEN_REDIRECT|window\.location\s*=\s*[^'"]*\+|Dynamic redirect URL
+MEDIUM|OPEN_REDIRECT|res\.redirect\s*\([^)]*\+|Express redirect with concatenation
+
+# Insecure Randomness
+MEDIUM|CRYPTO|Math\.random\s*\(|Math.random is not cryptographically secure
+LOW|CRYPTO|Math\.random|Use crypto.getRandomValues for security-sensitive operations
+
+# Information Disclosure
+LOW|DEBUG|console\.log\s*\(|Console log should be removed in production
+LOW|DEBUG|console\.debug\s*\(|Console debug should be removed
+LOW|DEBUG|console\.info\s*\(|Console info should be removed
+MEDIUM|DEBUG|debugger\s*;|Debugger statement left in code
+INFO|DEBUG|TODO:|Unresolved TODO comment
+INFO|DEBUG|FIXME:|Unresolved FIXME comment
+INFO|DEBUG|HACK:|Hack comment indicates technical debt
+INFO|DEBUG|XXX:|XXX comment indicates issue
+
+# Insecure Deserialization
+HIGH|DESERIALIZATION|JSON\.parse\s*\([^)]*req\.|JSON.parse on user input
+MEDIUM|DESERIALIZATION|unserialize\s*\(|PHP-style unserialize
+MEDIUM|DESERIALIZATION|pickle\.loads|Python pickle deserialization
+MEDIUM|DESERIALIZATION|yaml\.load\s*\([^)]*Loader|Unsafe YAML loading
+
+# Hardcoded Configuration
+MEDIUM|CONFIG|localhost:|Hardcoded localhost reference
+MEDIUM|CONFIG|127\.0\.0\.1|Hardcoded localhost IP
+LOW|CONFIG|0\.0\.0\.0|Binding to all interfaces
+
+# Insecure HTTP
+MEDIUM|NETWORK|http:\/\/(?!localhost)|Non-HTTPS URL (not localhost)
+LOW|NETWORK|allowInsecure|Insecure connection allowed
+LOW|NETWORK|rejectUnauthorized:\s*false|SSL verification disabled
+
+# Weak Cryptography
+CRITICAL|CRYPTO|md5\s*\(|MD5 is cryptographically broken
+HIGH|CRYPTO|sha1\s*\(|SHA1 is weak for security purposes
+MEDIUM|CRYPTO|DES|DES encryption is weak
+MEDIUM|CRYPTO|RC4|RC4 encryption is broken
+
+# Authentication Issues
+HIGH|AUTH|password.*==|Password comparison may be timing-vulnerable
+MEDIUM|AUTH|bcrypt.*rounds.*[1-9](?!\d)|bcrypt rounds too low (< 10)
+LOW|AUTH|remember.*me|Remember me functionality needs review

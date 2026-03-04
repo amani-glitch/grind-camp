@@ -1,0 +1,28 @@
+{
+  "name": "the-grind-camp",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "powershell -ExecutionPolicy Bypass -File ./deploy.ps1",
+    "deploy:function": "cd functions && powershell -ExecutionPolicy Bypass -File ./deploy-function.ps1",
+    "deploy:check": "powershell -ExecutionPolicy Bypass -File ./pre-deploy-check.ps1",
+    "logs": "gcloud functions logs read sendRegistrationEmail --region europe-west1 --limit 50",
+    "test:email": "powershell -Command \"Invoke-RestMethod -Method Post -Uri 'https://europe-west1-adp-413110.cloudfunctions.net/sendRegistrationEmail' -ContentType 'application/json' -Body (Get-Content test-email.json -Raw)\""
+  },
+  "dependencies": {
+    "react-dom": "^19.2.3",
+    "react": "^19.2.3",
+    "react-router-dom": "^7.11.0",
+    "@google/genai": "^1.35.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "version": "1.0.0",
+  "name": "Security Audit Configuration",
+  "description": "Configuration file for the security audit tool",
+
+  "scan_options": {
+    "check_secrets": true,
+    "check_dependencies": true,
+    "check_dangerous_patterns": true,
+    "check_authentication": true,
+    "check_configuration": true,
+    "check_sensitive_files": true,
+    "check_security_headers": true,
+    "check_input_validation": true,
+    "check_rate_limiting": true,
+    "check_error_handling": true
+  },
+
+  "exclude_paths": [
+    "node_modules",
+    "dist",
+    "build",
+    ".git",
+    "coverage",
+    "__pycache__",
+    ".next",
+    ".nuxt",
+    "vendor",
+    "venv",
+    ".venv"
+  ],
+
+  "exclude_files": [
+    "*.min.js",
+    "*.min.css",
+    "*.map",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml"
+  ],
+
+  "file_extensions": {
+    "javascript": [".js", ".jsx", ".mjs", ".cjs"],
+    "typescript": [".ts", ".tsx", ".mts", ".cts"],
+    "python": [".py"],
+    "php": [".php"],
+    "ruby": [".rb"],
+    "go": [".go"],
+    "java": [".java"],
+    "csharp": [".cs"],
+    "html": [".html", ".htm"],
+    "config": [".json", ".yaml", ".yml", ".toml", ".ini", ".env"]
+  },
+
+  "severity_thresholds": {
+    "fail_on_critical": true,
+    "fail_on_high": true,
+    "fail_on_medium": false,
+    "fail_on_low": false
+  },
+
+  "secrets_detection": {
+    "enabled": true,
+    "check_git_history": false,
+    "ignore_patterns": [
+      "*.example",
+      "*.sample",
+      "*.template",
+      "test/*",
+      "tests/*",
+      "__tests__/*",
+      "spec/*",
+      "*.test.*",
+      "*.spec.*"
+    ],
+    "additional_patterns": []
+  },
+
+  "dependency_check": {
+    "enabled": true,
+    "npm_audit": true,
+    "check_outdated": true,
+    "severity_threshold": "moderate"
+  },
+
+  "sensitive_files": {
+    "enabled": true,
+    "patterns": [
+      "*.pem",
+      "*.key",
+      "*.p12",
+      "*.pfx",
+      "*.crt",
+      "id_rsa*",
+      "id_dsa*",
+      "id_ed25519*",
+      "*.keystore",
+      "credentials.json",
+      "service-account*.json",
+      "client_secret*.json",
+      ".htpasswd",
+      ".htaccess",
+      "wp-config.php",
+      "database.yml",
+      "secrets.yml",
+      "*.sqlite",
+      "*.db"
+    ]
+  },
+
+  "gitignore_recommendations": [
+    ".env",
+    ".env.local",
+    ".env.*.local",
+    ".env.development",
+    ".env.production",
+    "*.pem",
+    "*.key",
+    "*.p12",
+    "credentials.json",
+    "service-account.json",
+    ".DS_Store",
+    "Thumbs.db"
+  ],
+
+  "security_headers": {
+    "required": [
+      "Content-Security-Policy",
+      "X-Content-Type-Options",
+      "X-Frame-Options",
+      "Strict-Transport-Security"
+    ],
+    "recommended": [
+      "X-XSS-Protection",
+      "Referrer-Policy",
+      "Permissions-Policy",
+      "Cross-Origin-Opener-Policy",
+      "Cross-Origin-Resource-Policy"
+    ]
+  },
+
+  "validation_libraries": {
+    "javascript": ["zod", "yup", "joi", "validator", "express-validator", "class-validator"],
+    "python": ["pydantic", "marshmallow", "cerberus", "voluptuous"],
+    "php": ["symfony/validator", "respect/validation"]
+  },
+
+  "report_options": {
+    "formats": ["html", "md", "json"],
+    "include_recommendations": true,
+    "include_checklist": true,
+    "show_code_snippets": true,
+    "max_snippet_lines": 5
+  },
+
+  "ci_integration": {
+    "exit_code_on_critical": 2,
+    "exit_code_on_high": 1,
+    "exit_code_success": 0,
+    "output_format": "json"
+  },
+
+  "custom_rules": []
+}

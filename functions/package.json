@@ -1,0 +1,17 @@
+{
+  "name": "grind-camp-functions",
+  "version": "1.0.0",
+  "description": "Cloud Functions for Grind Camp email notifications",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "deploy": "gcloud functions deploy sendRegistrationEmail --runtime nodejs18 --trigger-http --region europe-west1 --set-env-vars ALLOWED_ORIGINS=https://grindcamp.fr,https://www.grindcamp.fr --set-secrets GMAIL_APP_PASSWORD=GMAIL_APP_PASSWORD:latest,ADMIN_EMAILS=ADMIN_EMAILS:latest",
+    "deploy:dev": "gcloud functions deploy sendRegistrationEmail --runtime nodejs18 --trigger-http --allow-unauthenticated --region europe-west1"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "googleapis": "^126.0.0",
+    "nodemailer": "^6.9.7",
+    "cors": "^2.8.5"
+  }
+}

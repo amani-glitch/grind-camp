@@ -1,0 +1,7 @@
+{
+  "name": "THE GRIND CAMP",
+  "description": "Application officielle du stage de basket The Grind Camp à Pernes-les-Fontaines. Inscriptions, espace privé et suivi.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

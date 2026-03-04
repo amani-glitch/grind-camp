@@ -1,0 +1,35 @@
+{
+  "name": "security-audit-tool",
+  "version": "1.0.0",
+  "description": "Pre-production security vulnerability scanner for web applications",
+  "main": "index.js",
+  "scripts": {
+    "audit": "bash ./security-audit.sh",
+    "audit:verbose": "bash ./security-audit.sh -v",
+    "audit:html": "bash ./security-audit.sh -f html",
+    "audit:json": "bash ./security-audit.sh -f json",
+    "audit:ci": "bash ./security-audit.sh -f json -o ./reports"
+  },
+  "bin": {
+    "security-audit": "./security-audit.sh"
+  },
+  "keywords": [
+    "security",
+    "audit",
+    "vulnerability",
+    "scanner",
+    "owasp",
+    "pre-production",
+    "devops",
+    "ci-cd"
+  ],
+  "author": "Grind Camp Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/security-audit-tool"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
